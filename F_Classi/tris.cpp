@@ -61,6 +61,64 @@ class Tris
        griglia[x][y]=2;
        return true; 
     }
+
+    int controlla_vincitore()
+    {
+        int risultato;
+        for(int i=0;i<3;i++)
+        {
+           risultato=controlla_collonna(i);
+           if (risultato!=0)
+             return risultato;
+
+            risultato=controlla_righe(i);
+            if (risultato !=0)
+             return risultato; 
+        }
+    }
+private:
+    int controlla_collonna(int col)
+    {
+        int acc_uno=0;
+        int acc_due=0;
+        for(int i=0;i<3;i++)
+        {
+           int cella=griglia[i][col];
+           if(cella==1)
+              acc_uno++;
+           else if (cella==2)
+              acc_due++;      
+        }
+
+       if(acc_uno==3)
+          return 1;
+       if(acc_due==3)
+          return 2;
+       return 0;      
+    }
+    int controlla_righe(int riga)
+    {
+        int acc_uno=0;
+        int acc_due=0;
+        for(int i=0;i<3;i++)
+        {
+           int cella=griglia[riga][i];
+           if(cella==1)
+              acc_uno++;
+           else if (cella==2)
+              acc_due++;      
+        }
+
+       if(acc_uno==3)
+          return 1;
+       if(acc_due==3)
+          return 2;
+       return 0;      
+    }
+    int controlla_diagonali()
+    {
+
+    }
 };
 
 
@@ -74,8 +132,12 @@ int main(int argc, char const *argv[])
 
     int x, y;
     bool mossa_valida;
-    do
+    int vincitore;
+    int mosse_totali=0;
+    while (mosse_totali<9)
     {
+     do
+     {
        cout<<"Mossa del giocatore 1."<<endl;
        cout<<"X: ";
        cin>>x;
@@ -86,6 +148,11 @@ int main(int argc, char const *argv[])
     mossa_valida=myTris.giocatore_uno(x,y);
     } while (!mossa_valida);
 
+    myTris.stampa_griglia();
+
+    vincitore=myTris.controlla_vincitore();
+    if (vincitore !=0)
+       break;
       do
     {
        cout<<"Mossa del giocatore 2."<<endl;
@@ -99,7 +166,22 @@ int main(int argc, char const *argv[])
     } while (!mossa_valida);
 
      myTris.stampa_griglia();
+
+     vincitore=myTris.controlla_vincitore();
+    if (vincitore !=0)
+       break;
+
+    mosse_totali= mosse_totali + 2;   
   
+    }
+
+    if (vincitore==1)
+       cout<<"Vince giocatore 1!"<<endl;
+    else if (vincitore==2)
+       cout<<"Vince giocatore 2!"<<endl;
+    else
+       cout<<"Pareggio!"<<endl;      
+    
 
 
     return 0;
