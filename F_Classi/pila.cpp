@@ -1,7 +1,3 @@
-/*
-** Vettore.cpp - definizione e uso di una classe Vettore
-*/
-
 #include <iostream>
 
 using namespace std;
@@ -34,6 +30,13 @@ class Vettore{
         v[len] = n;
         len++;
     }
+
+    int pop()
+    {
+        if(len==0) {cout<< "\nERRORE Pila Vuota\n"; return 0;}
+        return v[--len]
+        
+    }
     
     int getElement(int index)
     {
@@ -53,11 +56,14 @@ class Vettore{
 };
 
 int main(int argc, char *argv[]){
-    Vettore vett(10, 10);
+    Pila vett(10, 10);
     for(int i=0;i<100;i++) vett.add(i);
-    cout<<vett.getElement(10)<<endl;
-    vett.setElement(10,333);
+    for(int i=0;i<10;i++) cout<<vett.pop()<<" ";
+    cout<<endl;
 
-    vett.print();
+    
+
+    
+    
 }
 
